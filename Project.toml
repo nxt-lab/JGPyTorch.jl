@@ -1,0 +1,7 @@
+name = "JGPyTorch"
+uuid = "583810d1-74b0-4331-83bf-dfe729c9c8ed"
+authors = ["Truong Nghiem <truong.nghiem@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"

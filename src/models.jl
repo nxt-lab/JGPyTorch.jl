@@ -164,9 +164,25 @@ function __init__()
     """
 end
 
+## Abstract ExactGP model
+abstract type AbstractExactGPModel <: AbstractGPModel end
+
+## Common methods for AbstractExactGPModel
+function set_train_data(model::AbstractExactGPModel; inputs=nothing, targets=nothing, strict=true)
+    if isnothing(inputs) && isnothing(targets)
+        return model
+    end
+
+    get_object(model).set_train_data(
+        isnothing(inputs) ? inputs : to_torch(inputs),
+        isnothing(targets) ? targets : to_torch(targets),
+        strict)
+
+    return model
+end
 
 ## ExactGPModel (wrapper)
-mutable struct ExactGPModel <: AbstractGPModel
+mutable struct ExactGPModel <: AbstractExactGPModel
     obj::PyObject
 end
 
@@ -181,7 +197,7 @@ end
 
 
 ## ExactGPWithDerivativesModel (wrapper)
-mutable struct ExactGPWithDerivativesModel <: AbstractGPModel
+mutable struct ExactGPWithDerivativesModel <: AbstractExactGPModel
     obj::PyObject
 end
 
